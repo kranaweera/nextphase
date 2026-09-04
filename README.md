@@ -31,6 +31,33 @@ Launch the dashboard:
 driftwatch ui --tracking-uri file:./runs --port 8000
 ```
 
+This serves the API and the web dashboard from one process (session grid, per-metric
+drift/quality/performance time series, an alerts view) and also runs a background
+scheduler that computes metrics for elapsed windows and evaluates alert rules
+(`--alert-interval SECONDS`, default 300; `0` disables it).
+
+### Alerting
+
+```python
+from driftwatch.store.base import AlertRule
+
+session.store.create_alert_rule(
+    AlertRule(
+        rule_id="income-psi",
+        session_id=session.session_id,
+        metric_name="psi",
+        feature_name="income",
+        comparator=">",
+        threshold=0.2,
+        consecutive_windows=2,  # only fire after 2 windows in a row breach
+        notifiers=[{"type": "slack", "url": "https://hooks.slack.com/services/..."}],
+    )
+)
+```
+
+A rule fires once per breaching window (never twice for the same one) via a
+webhook, Slack incoming-webhook, or SMTP email notifier.
+
 ## Why
 
 [NannyML](https://github.com/NannyML/nannyml) pioneered post-deployment drift/performance
@@ -46,11 +73,22 @@ pip install -e ".[text]"      # + text-modality embeddings (sentence-transformer
 pip install -e ".[all]"       # everything
 ```
 
+## Examples
+
+- [`examples/tabular_fraud_detector/`](examples/tabular_fraud_detector) — PSI/KS/Wasserstein
+  drift on a drifting tabular feature.
+- [`examples/text_sentiment_classifier/`](examples/text_sentiment_classifier) — embedding
+  centroid/MMD/vocabulary drift on a topic shift.
+
 ## Project layout
 
 See `src/driftwatch/` for the package (`store/` — tracking backends, `profilers/` — per-modality
 drift math, `metrics/` — quality & performance, `alerts/` — rule engine & notifiers, `server/` —
 FastAPI dashboard backend) and `dashboard/` for the React frontend.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
