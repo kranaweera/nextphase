@@ -20,9 +20,14 @@ def ui(
     ),
     host: str = typer.Option("127.0.0.1", "--host"),
     port: int = typer.Option(8000, "--port"),
+    alert_interval: float = typer.Option(
+        300.0,
+        "--alert-interval",
+        help="Seconds between metric/alert scheduler ticks. 0 disables it.",
+    ),
 ) -> None:
     """Launch the DriftWatch dashboard (API + web UI) for a tracking URI."""
-    fastapi_app = create_app(tracking_uri)
+    fastapi_app = create_app(tracking_uri, alert_interval_seconds=alert_interval or None)
     uvicorn.run(fastapi_app, host=host, port=port)
 
 

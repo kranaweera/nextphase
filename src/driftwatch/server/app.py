@@ -5,6 +5,8 @@ one process, one port).
 
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -14,14 +16,34 @@ from fastapi.staticfiles import StaticFiles
 from driftwatch import __version__
 from driftwatch.config import get_store
 from driftwatch.server.routes import alerts, health, sessions
+from driftwatch.server.scheduler import Scheduler
 
 _STATIC_DIR = Path(__file__).parent / "static"
 
 
-def create_app(tracking_uri: str) -> FastAPI:
-    app = FastAPI(title="DriftWatch", version=__version__)
+def create_app(tracking_uri: str, alert_interval_seconds: float | None = 300.0) -> FastAPI:
+    """`alert_interval_seconds=None` disables the background scheduler
+    (windowing + alert evaluation) — useful for tests that don't want a
+    background thread running against a short-lived store."""
+    store = get_store(tracking_uri)
+    scheduler = (
+        Scheduler(store, interval_seconds=alert_interval_seconds)
+        if alert_interval_seconds
+        else None
+    )
+
+    @asynccontextmanager
+    async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+        if scheduler is not None:
+            scheduler.start()
+        yield
+        if scheduler is not None:
+            scheduler.stop()
+
+    app = FastAPI(title="DriftWatch", version=__version__, lifespan=lifespan)
     app.state.tracking_uri = tracking_uri
-    app.state.store = get_store(tracking_uri)
+    app.state.store = store
+    app.state.scheduler = scheduler
 
     app.include_router(health.router, prefix="/api")
     app.include_router(sessions.router, prefix="/api")

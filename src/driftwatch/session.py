@@ -6,25 +6,10 @@ from datetime import datetime, timezone
 from typing import Any
 
 from driftwatch._event_writer import EventWriter
+from driftwatch.profilers import get_profiler
 from driftwatch.profilers.detect import detect_modality
 from driftwatch.store.base import AbstractStore, EventRecord, Modality, SessionRecord
 from driftwatch.wrapper import ModelWrapper
-
-
-def _default_profiler(modality: Modality) -> Any:
-    if modality == "tabular":
-        from driftwatch.profilers.tabular import TabularProfiler
-
-        return TabularProfiler()
-    if modality == "text":
-        from driftwatch.profilers.text import TextProfiler
-
-        return TextProfiler()
-    if modality == "image":
-        from driftwatch.profilers.image import ImageProfiler
-
-        return ImageProfiler()
-    raise ValueError(f"Unsupported modality: {modality!r}")
 
 
 def _infer_schema(reference_data: Any, modality: Modality) -> dict[str, Any]:
@@ -82,7 +67,7 @@ class Session:
                 raise RuntimeError(
                     "Session modality is still 'auto' — call log_baseline(...) first."
                 )
-            self._profiler = _default_profiler(self.modality)  # type: ignore[arg-type]
+            self._profiler = get_profiler(self.modality)  # type: ignore[arg-type]
         return self._profiler
 
     def _ensure_persisted(self) -> None:

@@ -19,7 +19,7 @@ def api(tmp_path):
     monitored(pd.DataFrame({"income": [55000.0]}))
     session.flush()
 
-    app = create_app(uri)
+    app = create_app(uri, alert_interval_seconds=None)
     with TestClient(app) as client:
         client.session_id = session.session_id  # type: ignore[attr-defined]
         client.store = session.store  # type: ignore[attr-defined]
