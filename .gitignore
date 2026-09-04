@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Node / dashboard
+dashboard/node_modules/
+dashboard/dist/
+
+# Built dashboard assets copied into the Python package at build time
+src/driftwatch/server/static/*
+!src/driftwatch/server/static/.gitkeep
+
+# Runtime data (local tracking store)
+runs/
+*.db
+*.db-journal
+
+# Editors / OS
+.DS_Store
+.vscode/
+.idea/
