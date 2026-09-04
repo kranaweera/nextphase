@@ -11,6 +11,14 @@ from driftwatch.store.base import AbstractStore, EventRecord, Modality, SessionR
 from driftwatch.wrapper import ModelWrapper
 
 
+def _compute_summary_stats(modality: Modality, reference_data: Any) -> dict[str, Any]:
+    if modality == "tabular":
+        from driftwatch.profilers.tabular import TabularProfiler
+
+        return TabularProfiler().compute_baseline_stats(reference_data)
+    return {}
+
+
 def _infer_schema(reference_data: Any, modality: Modality) -> dict[str, Any]:
     if modality == "tabular":
         if hasattr(reference_data, "dtypes"):  # pandas DataFrame
@@ -76,10 +84,11 @@ class Session:
         self._ensure_persisted()
 
         schema = _infer_schema(reference_data, self.modality)  # type: ignore[arg-type]
+        summary_stats = _compute_summary_stats(self.modality, reference_data)  # type: ignore[arg-type]
         return self.store.log_baseline(
             session_id=self.session_id,
             schema=schema,
-            summary_stats={},
+            summary_stats=summary_stats,
             reference_sample=reference_data,
             row_count=len(reference_data),
         )
