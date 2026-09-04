@@ -4,6 +4,8 @@ import pandas as pd
 import pytest
 
 import driftwatch as dw
+from driftwatch.profilers.text import TextProfiler
+from tests._fakes import FakeEmbedder
 
 
 @pytest.fixture(autouse=True)
@@ -74,7 +76,9 @@ def test_wrap_logs_errors_without_swallowing_exception(tmp_path):
 
 
 def test_auto_modality_resolved_from_baseline():
-    session = dw.init(model_name="sentiment", modality="auto")
+    session = dw.init(
+        model_name="sentiment", modality="auto", profiler=TextProfiler(embedder=FakeEmbedder())
+    )
     with pytest.raises(RuntimeError, match="modality is still 'auto'"):
         session.wrap(lambda x: x)
 

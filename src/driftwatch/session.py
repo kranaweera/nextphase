@@ -11,12 +11,20 @@ from driftwatch.store.base import AbstractStore, EventRecord, Modality, SessionR
 from driftwatch.wrapper import ModelWrapper
 
 
-def _compute_summary_stats(modality: Modality, reference_data: Any) -> dict[str, Any]:
+def _default_profiler(modality: Modality) -> Any:
     if modality == "tabular":
         from driftwatch.profilers.tabular import TabularProfiler
 
-        return TabularProfiler().compute_baseline_stats(reference_data)
-    return {}
+        return TabularProfiler()
+    if modality == "text":
+        from driftwatch.profilers.text import TextProfiler
+
+        return TextProfiler()
+    if modality == "image":
+        from driftwatch.profilers.image import ImageProfiler
+
+        return ImageProfiler()
+    raise ValueError(f"Unsupported modality: {modality!r}")
 
 
 def _infer_schema(reference_data: Any, modality: Modality) -> dict[str, Any]:
@@ -45,6 +53,7 @@ class Session:
         tracking_uri: str,
         tags: dict[str, Any] | None = None,
         task_type: str | None = None,
+        profiler: Any | None = None,
     ):
         self.store = store
         self.session_id = session_id
@@ -57,6 +66,24 @@ class Session:
 
         self._persisted = False
         self._writer = EventWriter(store)
+        self._profiler = profiler
+
+    @property
+    def profiler(self) -> Any:
+        """The Profiler this session uses for baseline stats and drift computation.
+
+        Resolved (and cached) on first access, once modality is known — either
+        the one passed to `driftwatch.init(profiler=...)`, or the default for
+        this session's modality. Reusing the same instance for `log_baseline`
+        and windowing keeps e.g. a custom text Embedder consistent everywhere.
+        """
+        if self._profiler is None:
+            if self.modality == "auto":
+                raise RuntimeError(
+                    "Session modality is still 'auto' — call log_baseline(...) first."
+                )
+            self._profiler = _default_profiler(self.modality)  # type: ignore[arg-type]
+        return self._profiler
 
     def _ensure_persisted(self) -> None:
         if self._persisted:
@@ -84,7 +111,7 @@ class Session:
         self._ensure_persisted()
 
         schema = _infer_schema(reference_data, self.modality)  # type: ignore[arg-type]
-        summary_stats = _compute_summary_stats(self.modality, reference_data)  # type: ignore[arg-type]
+        summary_stats = self.profiler.compute_baseline_stats(reference_data)
         return self.store.log_baseline(
             session_id=self.session_id,
             schema=schema,
