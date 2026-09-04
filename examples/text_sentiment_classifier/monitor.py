@@ -12,7 +12,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 import driftwatch as dw
-from driftwatch.metrics.windowing import compute_drift_metrics
+from driftwatch.metrics.windowing import compute_window_metrics
 
 REFERENCE_REVIEWS = [
     "the coffee machine broke again this morning",
@@ -54,7 +54,7 @@ def main() -> None:
 
     # See train_and_monitor.py in the tabular example for why `now` is
     # pushed an hour ahead: metrics only compute for fully-elapsed windows.
-    results = compute_drift_metrics(
+    results = compute_window_metrics(
         store=session.store,
         session_id=session.session_id,
         profiler=session.profiler,
@@ -62,7 +62,7 @@ def main() -> None:
         now=datetime.now(timezone.utc) + timedelta(hours=1),
     )
 
-    print(f"\n{len(results)} drift metrics computed for session {session.session_id}:\n")
+    print(f"\n{len(results)} metrics computed for session {session.session_id}:\n")
     for r in sorted(results, key=lambda x: x.metric_name):
         is_drifted = bool((r.details or {}).get("is_drifted"))
         flag = " <- DRIFTED" if is_drifted else ""

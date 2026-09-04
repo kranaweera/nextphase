@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 import pandas as pd
 
 import driftwatch as dw
-from driftwatch.metrics.windowing import compute_drift_metrics
+from driftwatch.metrics.windowing import compute_window_metrics
 from driftwatch.profilers.tabular import TabularProfiler
 
 
@@ -50,7 +50,7 @@ def main() -> None:
     # Metrics are only computed for windows that have fully elapsed; since this
     # demo runs in seconds, we pass a `now` an hour ahead to close the current
     # window. In production, this runs on a schedule against the real clock.
-    results = compute_drift_metrics(
+    results = compute_window_metrics(
         store=session.store,
         session_id=session.session_id,
         profiler=TabularProfiler(),
@@ -58,7 +58,7 @@ def main() -> None:
         now=datetime.now(timezone.utc) + timedelta(hours=1),
     )
 
-    print(f"\n{len(results)} drift metrics computed for session {session.session_id}:\n")
+    print(f"\n{len(results)} metrics computed for session {session.session_id}:\n")
     for r in sorted(results, key=lambda x: (x.feature_name or "", x.metric_name)):
         is_drifted = bool((r.details or {}).get("is_drifted"))
         flag = " <- DRIFTED" if is_drifted else ""
