@@ -51,6 +51,9 @@ target-version = "py310"
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
 
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
+
 [tool.mypy]
 # Kept ahead of requires-python: numpy's own type stubs use PEP 695 syntax
 # that mypy only parses when targeting 3.12+, independent of what we support.
