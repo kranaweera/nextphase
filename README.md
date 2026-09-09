@@ -1,4 +1,4 @@
-# DriftWatch
+# NextPhase
 
 Post-deployment monitoring for ML models — modality-agnostic (tabular, text, and soon image)
 and model-agnostic (wraps any inference callable). Think NannyML's drift/performance math,
@@ -9,7 +9,7 @@ with MLflow's tracking-URI-and-dashboard ergonomics.
 ## Quickstart
 
 ```python
-import driftwatch as dw
+import nextphase as dw
 
 dw.set_tracking_uri("file:./runs")  # local, zero-config; Postgres/S3 planned
 
@@ -28,7 +28,7 @@ session.log_labels(request_ids, y_true)
 Launch the dashboard:
 
 ```bash
-driftwatch ui --tracking-uri file:./runs --port 8000
+nextphase ui --tracking-uri file:./runs --port 8000
 ```
 
 This serves the API and the web dashboard from one process (session grid, per-metric
@@ -39,7 +39,7 @@ scheduler that computes metrics for elapsed windows and evaluates alert rules
 ### Alerting
 
 ```python
-from driftwatch.store.base import AlertRule
+from nextphase.store.base import AlertRule
 
 session.store.create_alert_rule(
     AlertRule(
@@ -61,7 +61,7 @@ webhook, Slack incoming-webhook, or SMTP email notifier.
 ## Why
 
 [NannyML](https://github.com/NannyML/nannyml) pioneered post-deployment drift/performance
-monitoring without ground truth, but is tabular-first. DriftWatch aims to bring the same
+monitoring without ground truth, but is tabular-first. NextPhase aims to bring the same
 rigor to text (and eventually image) model deployments, behind a single wrapper API and a
 dashboard you point at any inference pipeline, regardless of framework.
 
@@ -82,7 +82,7 @@ pip install -e ".[all]"       # everything
 
 ## Project layout
 
-See `src/driftwatch/` for the package (`store/` — tracking backends, `profilers/` — per-modality
+See `src/nextphase/` for the package (`store/` — tracking backends, `profilers/` — per-modality
 drift math, `metrics/` — quality & performance, `alerts/` — rule engine & notifiers, `server/` —
 FastAPI dashboard backend) and `dashboard/` for the React frontend.
 

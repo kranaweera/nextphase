@@ -29,12 +29,12 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   performance tabs with per-metric time-series charts), and Alerts pages.
 - Alerting: `AlertEngine` (fires only when the last N consecutive windows all
   breach a threshold, never re-fires for the same window), webhook/Slack/email
-  notifiers, and a background scheduler running inside `driftwatch ui`.
-- `driftwatch ui` CLI (Typer) — one command serves the API and the built dashboard.
+  notifiers, and a background scheduler running inside `nextphase ui`.
+- `nextphase ui` CLI (Typer) — one command serves the API and the built dashboard.
 - Image modality: interface-compatible `ImageProfiler` stub for a fast-follow release.
 
 ### Planned (not in this release)
 - Real image-modality drift (CLIP/CNN-embedding centroid distance).
 - Production `PostgresStore` + S3-compatible payload storage.
 - Async/streaming model-callable support in `wrap()`.
-- Standalone `driftwatch worker` process for HA alert scheduling.
+- Standalone `nextphase worker` process for HA alert scheduling.

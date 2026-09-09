@@ -3,14 +3,14 @@ from typing import Any
 
 import pytest
 
-from driftwatch.alerts.rules import AlertEngine
-from driftwatch.store.base import (
+from nextphase.alerts.rules import AlertEngine
+from nextphase.store.base import (
     AlertRecord,
     AlertRule,
     MetricValueRecord,
     SessionRecord,
 )
-from driftwatch.store.sqlite_store import LocalSQLiteStore
+from nextphase.store.sqlite_store import LocalSQLiteStore
 
 
 class FakeNotifier:

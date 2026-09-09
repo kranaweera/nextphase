@@ -18,8 +18,8 @@ dashboard/node_modules/
 dashboard/dist/
 
 # Built dashboard assets copied into the Python package at build time
-src/driftwatch/server/static/*
-!src/driftwatch/server/static/.gitkeep
+src/nextphase/server/static/*
+!src/nextphase/server/static/.gitkeep
 
 # Runtime data (local tracking store)
 runs/

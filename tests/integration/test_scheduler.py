@@ -3,11 +3,11 @@ from datetime import datetime, timedelta, timezone
 import pandas as pd
 import pytest
 
-import driftwatch as dw
-from driftwatch.metrics.windowing import compute_window_metrics
-from driftwatch.profilers.tabular import TabularProfiler
-from driftwatch.server.scheduler import Scheduler
-from driftwatch.store.base import AlertRule
+import nextphase as dw
+from nextphase.metrics.windowing import compute_window_metrics
+from nextphase.profilers.tabular import TabularProfiler
+from nextphase.server.scheduler import Scheduler
+from nextphase.store.base import AlertRule
 
 
 @pytest.fixture(autouse=True)

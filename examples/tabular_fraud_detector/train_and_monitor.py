@@ -1,4 +1,4 @@
-"""End-to-end example: monitor a tabular fraud-detection model with DriftWatch.
+"""End-to-end example: monitor a tabular fraud-detection model with NextPhase.
 
 Run with:  python train_and_monitor.py
 """
@@ -10,9 +10,9 @@ from datetime import datetime, timedelta, timezone
 
 import pandas as pd
 
-import driftwatch as dw
-from driftwatch.metrics.windowing import compute_window_metrics
-from driftwatch.profilers.tabular import TabularProfiler
+import nextphase as dw
+from nextphase.metrics.windowing import compute_window_metrics
+from nextphase.profilers.tabular import TabularProfiler
 
 
 def fake_model(X: pd.DataFrame) -> list[int]:
@@ -64,7 +64,7 @@ def main() -> None:
         flag = " <- DRIFTED" if is_drifted else ""
         print(f"  {r.metric_name:22s} {r.feature_name or '-':10s} {r.value:>10.4f}{flag}")
 
-    print("\nRun `driftwatch ui --tracking-uri file:./runs` to explore this session.")
+    print("\nRun `nextphase ui --tracking-uri file:./runs` to explore this session.")
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@ from datetime import datetime, timezone
 
 import pytest
 
-from driftwatch.metrics.performance import compute_performance
-from driftwatch.store.base import EventRecord
+from nextphase.metrics.performance import compute_performance
+from nextphase.store.base import EventRecord
 
 
 def _event(request_id: str, output) -> EventRecord:

@@ -1,4 +1,4 @@
-from driftwatch.metrics.quality import compute_tabular_quality, compute_text_quality
+from nextphase.metrics.quality import compute_tabular_quality, compute_text_quality
 
 
 def test_tabular_duplicate_rate():

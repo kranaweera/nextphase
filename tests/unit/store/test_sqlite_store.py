@@ -3,14 +3,14 @@ from datetime import datetime, timedelta, timezone
 import pandas as pd
 import pytest
 
-from driftwatch.store.base import (
+from nextphase.store.base import (
     AlertRecord,
     AlertRule,
     EventRecord,
     MetricValueRecord,
     SessionRecord,
 )
-from driftwatch.store.sqlite_store import LocalSQLiteStore
+from nextphase.store.sqlite_store import LocalSQLiteStore
 
 
 @pytest.fixture

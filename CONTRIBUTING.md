@@ -1,4 +1,4 @@
-# Contributing to DriftWatch
+# Contributing to NextPhase
 
 Thanks for considering a contribution. This project is early-stage — expect the
 API to move.
@@ -7,7 +7,7 @@ API to move.
 
 ```bash
 git clone <this repo>
-cd driftwatch
+cd nextphase
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,text]"
 
@@ -30,7 +30,7 @@ All four must pass before opening a PR — this is exactly what CI runs.
 
 ## Project layout
 
-- `src/driftwatch/` — the Python package. See `store/` for the tracking backend,
+- `src/nextphase/` — the Python package. See `store/` for the tracking backend,
   `profilers/` for per-modality drift math, `metrics/` for quality/performance/
   windowing, `alerts/` for the rule engine and notifiers, `server/` for the
   FastAPI dashboard backend.
@@ -57,5 +57,5 @@ stub showing the expected shape.
 
 ## Reporting bugs / proposing features
 
-Open an issue with a minimal repro (a snippet using `driftwatch.init(...)` is
+Open an issue with a minimal repro (a snippet using `nextphase.init(...)` is
 usually enough) or a clear description of the use case for a feature request.

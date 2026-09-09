@@ -3,8 +3,8 @@
 import pandas as pd
 import pytest
 
-import driftwatch as dw
-from driftwatch.profilers.text import TextProfiler
+import nextphase as dw
+from nextphase.profilers.text import TextProfiler
 from tests._fakes import FakeEmbedder
 
 
@@ -52,7 +52,7 @@ def test_wrap_logs_events_end_to_end(tmp_path):
     parquet_files = list(payload_dir.rglob("*.parquet"))
     assert len(parquet_files) >= 1
 
-    db_path = session.store.root / "driftwatch.db"
+    db_path = session.store.root / "nextphase.db"
     assert db_path.exists()
 
 

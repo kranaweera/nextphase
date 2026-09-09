@@ -24,7 +24,7 @@ jobs:
       - name: Type check (mypy)
         run: mypy src
       - name: Test
-        run: pytest --cov=driftwatch --cov-report=term-missing
+        run: pytest --cov=nextphase --cov-report=term-missing
 
   dashboard:
     runs-on: ubuntu-latest

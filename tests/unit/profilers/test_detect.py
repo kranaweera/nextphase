@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from driftwatch.profilers.detect import detect_modality
+from nextphase.profilers.detect import detect_modality
 
 
 def test_detects_tabular_dataframe():

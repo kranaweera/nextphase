@@ -4,9 +4,9 @@ import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
 
-import driftwatch as dw
-from driftwatch.server.app import create_app
-from driftwatch.store.base import AlertRecord, AlertRule
+import nextphase as dw
+from nextphase.server.app import create_app
+from nextphase.store.base import AlertRecord, AlertRule
 
 
 @pytest.fixture

@@ -1,6 +1,6 @@
 # Text example: review classifier
 
-Monitors a toy text classifier with DriftWatch's `TextProfiler`. Simulates
+Monitors a toy text classifier with NextPhase's `TextProfiler`. Simulates
 production traffic shifting topic entirely — from coffee-shop reviews (the
 reference set) to unrelated customer-support tickets — and computes
 embedding-centroid distance, sampled MMD, length shift, and vocabulary

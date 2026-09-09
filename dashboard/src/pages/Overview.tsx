@@ -23,7 +23,7 @@ export default function Overview() {
       {!error && sessions === null && <div className="loading-state">Loading…</div>}
       {sessions !== null && sessions.length === 0 && (
         <div className="empty-state">
-          No sessions yet. Call <code>driftwatch.init(...)</code> from your inference code to
+          No sessions yet. Call <code>nextphase.init(...)</code> from your inference code to
           start one.
         </div>
       )}

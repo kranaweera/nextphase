@@ -3,7 +3,7 @@ import random
 import pandas as pd
 import pytest
 
-from driftwatch.profilers.tabular import TabularProfiler
+from nextphase.profilers.tabular import TabularProfiler
 
 
 @pytest.fixture

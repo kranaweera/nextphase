@@ -1,7 +1,7 @@
 # Tabular example: fraud detector
 
 Monitors a toy fraud-detection model (any callable — here a plain function
-stands in for an sklearn/PyTorch model) with DriftWatch. Simulates 200
+stands in for an sklearn/PyTorch model) with NextPhase. Simulates 200
 inference calls where `income` drifts sharply upward relative to the
 reference distribution, then computes drift metrics (PSI, KS-test,
 Wasserstein distance, missing-rate delta, schema drift) for the elapsed

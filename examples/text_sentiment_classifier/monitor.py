@@ -1,8 +1,8 @@
-"""End-to-end example: monitor a text classifier with DriftWatch.
+"""End-to-end example: monitor a text classifier with NextPhase.
 
 Uses the default embedder (`sentence-transformers`, downloaded on first
 run) to detect a topic shift between the reference set and production
-traffic. Requires: pip install "driftwatch[text]"
+traffic. Requires: pip install "nextphase[text]"
 
 Run with:  python monitor.py
 """
@@ -11,8 +11,8 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 
-import driftwatch as dw
-from driftwatch.metrics.windowing import compute_window_metrics
+import nextphase as dw
+from nextphase.metrics.windowing import compute_window_metrics
 
 REFERENCE_REVIEWS = [
     "the coffee machine broke again this morning",
@@ -68,7 +68,7 @@ def main() -> None:
         flag = " <- DRIFTED" if is_drifted else ""
         print(f"  {r.metric_name:28s} {r.value:>10.4f}{flag}")
 
-    print("\nRun `driftwatch ui --tracking-uri file:./runs` to explore this session.")
+    print("\nRun `nextphase ui --tracking-uri file:./runs` to explore this session.")
 
 
 if __name__ == "__main__":

@@ -20,8 +20,8 @@ jobs:
         run: |
           npm ci
           npm run build
-          mkdir -p ../src/driftwatch/server/static
-          cp -r dist/* ../src/driftwatch/server/static/
+          mkdir -p ../src/nextphase/server/static
+          cp -r dist/* ../src/nextphase/server/static/
       - name: Build package
         run: |
           pip install build

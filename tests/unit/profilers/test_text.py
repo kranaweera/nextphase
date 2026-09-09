@@ -1,6 +1,6 @@
 import pytest
 
-from driftwatch.profilers.text import TextProfiler
+from nextphase.profilers.text import TextProfiler
 from tests._fakes import FakeEmbedder
 
 REFERENCE_TEXTS = [

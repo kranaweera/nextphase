@@ -4,7 +4,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="nav-bar">
-        <span className="brand">DriftWatch</span>
+        <span className="brand">NextPhase</span>
         <nav>
           <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
             Overview

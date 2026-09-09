@@ -3,9 +3,9 @@ from datetime import datetime, timedelta, timezone
 import pandas as pd
 import pytest
 
-import driftwatch as dw
-from driftwatch.metrics.windowing import compute_window_metrics
-from driftwatch.profilers.tabular import TabularProfiler
+import nextphase as dw
+from nextphase.metrics.windowing import compute_window_metrics
+from nextphase.profilers.tabular import TabularProfiler
 
 
 @pytest.fixture(autouse=True)
