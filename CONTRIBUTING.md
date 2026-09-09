@@ -12,6 +12,8 @@ python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,text]"
 
 cd dashboard && npm install && cd ..
+
+./scripts/build_dashboard.sh   # so `nextphase ui` has something to serve at /
 ```
 
 ## Running checks

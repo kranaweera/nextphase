@@ -28,8 +28,15 @@ session.log_labels(request_ids, y_true)
 Launch the dashboard:
 
 ```bash
+./scripts/build_dashboard.sh          # one-time (or after pulling dashboard/ changes):
+                                       # builds the React app into src/nextphase/server/static/
 nextphase ui --tracking-uri file:./runs --port 8000
 ```
+
+> Running from source, `nextphase ui` has nothing to serve at `/` until you've
+> run `build_dashboard.sh` at least once — you'll otherwise see a bare `{"detail":"Not
+> Found"}` in the browser (the API itself, under `/api/*`, works either way). A
+> PyPI install bundles the built dashboard already, so this step is source-only.
 
 This serves the API and the web dashboard from one process (session grid, per-metric
 drift/quality/performance time series, an alerts view) and also runs a background
