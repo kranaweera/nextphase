@@ -1,4 +1,4 @@
-"""Module-level tracking-URI state, mirroring `mlflow.set_tracking_uri`."""
+"""Module-level tracking-URI state for `set_tracking_uri`/`get_store`."""
 
 from __future__ import annotations
 

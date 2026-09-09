@@ -1,6 +1,5 @@
 """FastAPI app factory: the NextPhase dashboard API, plus the built React
-SPA when present (mounted the same way `mlflow ui` serves its frontend —
-one process, one port).
+SPA when present — one process, one port.
 """
 
 from __future__ import annotations

@@ -1,8 +1,8 @@
 # NextPhase
 
 Post-deployment monitoring for ML models — modality-agnostic (tabular, text, and soon image)
-and model-agnostic (wraps any inference callable). Think NannyML's drift/performance math,
-with MLflow's tracking-URI-and-dashboard ergonomics.
+and model-agnostic (wraps any inference callable), with drift/performance math and a
+tracking-URI-and-dashboard workflow built in.
 
 > **Status**: early alpha, under active development. APIs will change.
 
@@ -67,10 +67,9 @@ webhook, Slack incoming-webhook, or SMTP email notifier.
 
 ## Why
 
-[NannyML](https://github.com/NannyML/nannyml) pioneered post-deployment drift/performance
-monitoring without ground truth, but is tabular-first. NextPhase aims to bring the same
-rigor to text (and eventually image) model deployments, behind a single wrapper API and a
-dashboard you point at any inference pipeline, regardless of framework.
+Post-deployment drift/performance monitoring tends to be tabular-first. NextPhase aims to
+bring the same rigor to text (and eventually image) model deployments, behind a single
+wrapper API and a dashboard you point at any inference pipeline, regardless of framework.
 
 ## Install
 
